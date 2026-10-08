@@ -1,0 +1,30 @@
+{
+  "kind": "univ4_hook",
+  "hook": {
+    "contract": "SIMDTESTHook",
+    "constructorArgs": [
+      "$poolManager",
+      "$token"
+    ],
+    "permissions": [
+      "beforeInitialize",
+      "beforeSwap",
+      "afterSwap",
+      "beforeSwapReturnDelta",
+      "afterSwapReturnDelta"
+    ]
+  },
+  "token": {
+    "contract": "SIMDTEST",
+    "name": "SIMDTEST",
+    "symbol": "SIMDTEST",
+    "decimals": 18
+  },
+  "pool": {
+    "pairedCurrency": "0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7",
+    "fee": 12500,
+    "tickSpacing": 60,
+    "initialPrice": "79228162514264337593543950336"
+  },
+  "notes": "Ethereum mainnet (chainId 1). Resolve $poolManager to 0x000000000004444c5dc75cB358380D2e3dE08A90 and $token to the just-deployed SIMDTEST. Deploy the hook itself by CREATE2 with flags 0x20cc. Its constructor creates its fixed rewardRouter; no wrapper or additional configuration. Entire 1e27 token supply mints to the factory, which handles 90% pool seeding and the 10% swarm allocation externally. Static 12500 LP fee plus a 2% IMD hook fee. Buyers using rewardRouter (payer equals recipient) accrue 1% of actual IMD spent including hook fees for buys >=10e18. Other routers trade with fees but no unauthenticated rewards. Sell swaps never earn rewards. Partial fills cap the fee using a reverting PoolManager preview; exact-input buys include the fee in their budget, exact-output sells specify net IMD. Fees accrue in IMD or manager ERC-6909 claims if an immediate transfer fails. collectFees redeems claims to the hook; claimRewards and permissionless payRecorded pay only the beneficiary, outside all manager unlocks. Surplus fees remain permanently in the hook; no owner, sweep, upgrades, or mutable parameters. initialPrice is provenance only; the factory sets the economic opening price."
+}

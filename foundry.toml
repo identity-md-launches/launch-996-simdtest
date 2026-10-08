@@ -1,0 +1,26 @@
+[profile.default]
+src = "src"
+test = "test"
+script = "script"
+libs = ["lib"]
+solc_version = "0.8.26"
+evm_version = "cancun"
+optimizer = true
+optimizer_runs = 200
+bytecode_hash = "none"
+offline = true
+ffi = false
+fs_permissions = []
+auto_detect_remappings = false
+remappings = [
+  "forge-std/=lib/forge-std/src/",
+  "v4-core/=lib/v4-core/",
+  "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+  "solmate/=lib/solmate/"
+]
+
+[fmt]
+line_length = 110
+
+[profile.extended.fuzz]
+runs = 2000
